@@ -42,7 +42,7 @@ if [ "$1" = "config" ]; then
 	# one machine answer for several)
 
 	# The title of the graph
-	echo 'graph_title RabbitMQ $VHOST list_queues'
+	echo "graph_title RabbitMQ $VHOST list_queues"
 	# Arguments to "rrdtool graph". In this case, tell it that the
 	# lower limit of the graph is '0', and that 1k=1000 (not 1024)
 	echo 'graph_args --base 1000 -l 0'
