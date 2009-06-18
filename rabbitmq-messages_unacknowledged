@@ -29,10 +29,9 @@ fi
 # graphs should look. 
 
 VHOST=${vhost:-"/"}
-QUEUE_STATUS=$(sudo rabbitmqctl list_queues -p $VHOST | \
+QUEUES=$(sudo rabbitmqctl list_queues -p $VHOST name | \
 		grep -v '^Listing' | \
-		grep -v 'done.$')
-QUEUES=$(echo $QUEUE_STATUS | awk '{print $1}')
+		grep -v 'done\.$')
  
 if [ "$1" = "config" ]; then
         QUEUE_WARN=${queue_warn:-10000}
