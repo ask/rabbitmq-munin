@@ -1,0 +1,9 @@
+To use these plug-ins you (regretfully) have to grant access for the
+munin-node user to use rabbitmqctl via sudo.
+
+Add this to your ``/etc/sudoers`` file by running ``visudo``::
+
+    muninuser ALL= NOPASSWD: /usr/sbin/rabbitmqctl list_queues *
+    muninuser ALL= NOPASSWD: /usr/sbin/rabbitmqctl list_connections
+
+Be careful and use at your own risk!
