@@ -28,7 +28,7 @@ fi
 # If run with the "config"-parameter, give out information on how the
 # graphs should look. 
 
-VHOST=portal
+VHOST=${vhost:-"/"}
 QUEUE_STATUS=$(sudo rabbitmqctl list_queues -p $VHOST | \
 		grep -v '^Listing' | \
 		grep -v 'done.$')
@@ -51,6 +51,7 @@ if [ "$1" = "config" ]; then
 	# We want Cur/Min/Avg/Max unscaled (i.e. 0.42 load instead of
 	# 420 milliload)
 	#echo 'graph_scale no'
+	echo 'graph_category RabbitMQ'
 
 	for queue in $QUEUES; do
 		echo "$queue.label $queue"
