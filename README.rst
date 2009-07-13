@@ -2,6 +2,19 @@
  RabbitMQ Munin Plug-Ins
 =========================
 
+Screenshots
+===========
+
+.. image:: http://cloud.github.com/downloads/ask/rabbitmq-munin/rabbitmq-munin-connections.png
+
+.. image:: http://cloud.github.com/downloads/ask/rabbitmq-munin/rabbitmq-munin-consumers.png
+
+.. image:: http://cloud.github.com/downloads/ask/rabbitmq-munin/rabbitmq-munin-list_queues.png
+
+.. image:: http://cloud.github.com/downloads/ask/rabbitmq-munin/rabbitmq-munin-queue-memory.png
+
+.. image:: http://cloud.github.com/downloads/ask/rabbitmq-munin/rabbitmq-munin-unacknowledged.png
+
 Installation
 ============
 
