@@ -69,6 +69,6 @@ fi
 # real work - i.e. display the data. Almost always this will be
 # "value" subfield for every data field.
 
-sudo rabbitmqctl list_queues -p portal | \
+sudo rabbitmqctl list_queues -p $VHOST | \
 	grep -v "^Listing" | grep -v "done.$" | \
 	perl -nle'($q, $s) = split; print("$q.value $s")'
