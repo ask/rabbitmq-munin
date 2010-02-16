@@ -71,4 +71,4 @@ fi
 
 sudo rabbitmqctl list_queues -p $VHOST | \
 	grep -v "^Listing" | grep -v "done.$" | \
-	perl -nle'($q, $s) = split; print("$q.value $s")'
+	perl -nle'($q, $s) = split; $q =~ s/\./_/g; print("$q.value $s")'
