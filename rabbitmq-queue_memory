@@ -29,9 +29,9 @@ fi
 # graphs should look. 
 
 VHOST=${vhost:-"/"}
-QUEUES=$(sudo rabbitmqctl list_queues -p $VHOST name | \
+QUEUES=$(rabbitmqctl list_queues -p $VHOST name | \
 		grep -v '^Listing' | \
-		grep -v 'done\.$')
+		grep -v 'done\.$' | sed -e 's/\./_/g')
  
 if [ "$1" = "config" ]; then
         QUEUE_WARN=${queue_warn:-10000}
@@ -69,6 +69,6 @@ fi
 # real work - i.e. display the data. Almost always this will be
 # "value" subfield for every data field.
 
-sudo rabbitmqctl list_queues -p $VHOST name memory | \
+rabbitmqctl list_queues -p $VHOST name memory | \
 	grep -v "^Listing" | grep -v "done.$" | \
     perl -nle'($q, $s) = split; $q =~ s/\./_/g; print("$q.value $s")'
