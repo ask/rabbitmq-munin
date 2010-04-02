@@ -31,7 +31,7 @@ fi
 VHOST=${vhost:-"/"}
 QUEUES=$(rabbitmqctl list_queues -p $VHOST name | \
 		grep -v '^Listing' | \
-		grep -v 'done\.$' | sed -e 's/\./_/g' )
+		grep -v 'done\.$' | sed -e 's/[.-]/_/g' )
  
 if [ "$1" = "config" ]; then
         QUEUE_WARN=${queue_warn:-100}
@@ -71,4 +71,4 @@ fi
 
 rabbitmqctl list_queues -p $VHOST name consumers| \
 	grep -v "^Listing" | grep -v "done.$" | \
-    perl -nle'($q, $s) = split; $q =~ s/\./_/g; print("$q.value $s")'
+    perl -nle'($q, $s) = split; $q =~ s/[.-]/_/g; print("$q.value $s")'
