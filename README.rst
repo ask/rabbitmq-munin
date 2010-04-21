@@ -23,15 +23,25 @@ Copy the plug-ins to the munin plugin directory, e.g ``/etc/munin/plugins/``.
 Granting Permissions
 ====================
 
-To use these plug-ins you (regretfully) have to grant access for the
-munin-node user to use rabbitmqctl via sudo.
+To use these plug-ins you have to tell munin-node to execute them as
+root by changing the plug-in configuration file (on debian that is
+``/etc/munin/plugin-conf.d``)::
 
-Add this to your ``/etc/sudoers`` file by running ``visudo``::
+    [rabbitmq-consumers]
+    user root
 
-    muninuser ALL= NOPASSWD: /usr/sbin/rabbitmqctl list_queues *
-    muninuser ALL= NOPASSWD: /usr/sbin/rabbitmqctl list_connections
+    [rabbitmq-messages]
+    user root
 
-Be careful and use at your own risk!
+    [rabbitmq-messages_unacknowledged]
+    user root
+
+    [rabbitmq-messages_uncommitted]
+    user root
+
+    [rabbitmq-queue_memory]
+    user root
+
 
 Using a Custom Virtual Host
 ============================
