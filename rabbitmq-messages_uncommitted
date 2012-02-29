@@ -21,7 +21,7 @@
 # always be included.
 
 if [ "$1" = "autoconf" ]; then
-	echo yes
+	pgrep -f rabbitmq_server >/dev/null && echo yes || echo no
 	exit 0
 fi
 
