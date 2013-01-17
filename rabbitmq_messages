@@ -32,7 +32,7 @@ HOME=/tmp/
 VHOST=${vhost:-"/"}
 QUEUES=$(HOME=$HOME rabbitmqctl list_queues -p $VHOST name | \
 		grep -v '^Listing' | \
-		grep -v 'done\.$' | sed -e 's/[.-=]/_/g' )
+		grep -v 'done\.$' | sed -e 's/[.=-]/_/g' )
  
 if [ "$1" = "config" ]; then
         QUEUE_WARN=${queue_warn:-10000}
@@ -42,12 +42,12 @@ if [ "$1" = "config" ]; then
 	# one machine answer for several)
 
 	# The title of the graph
-	echo "graph_title RabbitMQ $VHOST Unacknowledged Messages"
+	echo "graph_title RabbitMQ $VHOST list_queues"
 	# Arguments to "rrdtool graph". In this case, tell it that the
 	# lower limit of the graph is '0', and that 1k=1000 (not 1024)
 	echo 'graph_args --base 1000 -l 0'
 	# The Y-axis label
-	echo 'graph_vlabel unacknowledged'
+	echo 'graph_vlabel queue_size'
 	# We want Cur/Min/Avg/Max unscaled (i.e. 0.42 load instead of
 	# 420 milliload)
 	#echo 'graph_scale no'
@@ -57,7 +57,7 @@ if [ "$1" = "config" ]; then
 		echo "$queue.label $queue"
 		echo "$queue.warning $QUEUE_WARN"
 		echo "$queue.critical $QUEUE_CRIT"
-		echo "$queue.info Unacknowledged messages for $queue"
+		echo "$queue.info Queue size for $queue"
 	done
 
 	echo 'graph_info Lists how many messages are in each queue.'
@@ -70,6 +70,6 @@ fi
 # real work - i.e. display the data. Almost always this will be
 # "value" subfield for every data field.
 
-HOME=$HOME rabbitmqctl list_queues -p $VHOST name messages_unacknowledged | \
+HOME=$HOME rabbitmqctl list_queues -p $VHOST | \
 	grep -v "^Listing" | grep -v "done.$" | \
-    perl -nle'($q, $s) = split; $q =~ s/[.-=]/_/g; print("$q.value $s")'
+	perl -nle'($q, $s) = split; $q =~ s/[.=-]/_/g; print("$q.value $s")'
