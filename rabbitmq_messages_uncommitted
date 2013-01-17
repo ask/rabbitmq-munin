@@ -30,9 +30,9 @@ fi
 
 HOME=/tmp/
 VHOST=${vhost:-"/"}
-QUEUES=$(rabbitmqctl list_queues -p $VHOST name | \
+QUEUES=$(HOME=$HOME rabbitmqctl list_queues -p $VHOST name | \
 		grep -v '^Listing' | \
-		grep -v 'done\.$' | sed -e 's/[.-=]/_/g' )
+		grep -v 'done\.$' | sed -e 's/[.=-]/_/g' )
  
 if [ "$1" = "config" ]; then
         QUEUE_WARN=${queue_warn:-10000}
@@ -42,12 +42,12 @@ if [ "$1" = "config" ]; then
 	# one machine answer for several)
 
 	# The title of the graph
-	echo "graph_title RabbitMQ $VHOST Memory used by queue"
+	echo "graph_title RabbitMQ $VHOST Uncommitted Messages"
 	# Arguments to "rrdtool graph". In this case, tell it that the
 	# lower limit of the graph is '0', and that 1k=1000 (not 1024)
-	echo 'graph_args --base 1024 --vertical-label Bytes -l 0'
+	echo 'graph_args --base 1000 -l 0'
 	# The Y-axis label
-	echo 'graph_vlabel memory'
+	echo 'graph_vlabel uncommitted'
 	# We want Cur/Min/Avg/Max unscaled (i.e. 0.42 load instead of
 	# 420 milliload)
 	#echo 'graph_scale no'
@@ -57,10 +57,10 @@ if [ "$1" = "config" ]; then
 		echo "$queue.label $queue"
 		echo "$queue.warning $QUEUE_WARN"
 		echo "$queue.critical $QUEUE_CRIT"
-		echo "$queue.info Memory used by $queue"
+		echo "$queue.info Uncommitted messages for $queue"
 	done
 
-	echo 'graph_info Show memory usage by queue'
+	echo 'graph_info Lists how many messages are in each queue.'
 	# Last, if run with the "config"-parameter, quit here (don't
 	# display any data)
 	exit 0
@@ -70,6 +70,6 @@ fi
 # real work - i.e. display the data. Almost always this will be
 # "value" subfield for every data field.
 
-HOME=$HOME rabbitmqctl list_queues -p $VHOST name memory | \
+HOME=$HOME rabbitmqctl list_queues -p $VHOST name messages_uncommitted | \
 	grep -v "^Listing" | grep -v "done.$" | \
-    perl -nle'($q, $s) = split; $q =~ s/[.-=]/_/g; print("$q.value $s")'
+    perl -nle'($q, $s) = split; $q =~ s/[.=-]/_/g; print("$q.value $s")'
