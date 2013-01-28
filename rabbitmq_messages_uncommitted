@@ -70,6 +70,6 @@ fi
 # real work - i.e. display the data. Almost always this will be
 # "value" subfield for every data field.
 
-HOME=$HOME rabbitmqctl list_queues -p $VHOST name messages_uncommitted | \
+HOME=$HOME rabbitmqctl list_channels -p $VHOST name messages_uncommitted | \
 	grep -v "^Listing" | grep -v "done.$" | \
     perl -nle'($q, $s) = split; $q =~ s/[.=-]/_/g; print("$q.value $s")'
