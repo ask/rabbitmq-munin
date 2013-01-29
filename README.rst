@@ -27,19 +27,22 @@ To use these plug-ins you have to tell munin-node to execute them as
 root by changing the plug-in configuration file (on debian that is
 ``/etc/munin/plugin-conf.d``)::
 
-    [rabbitmq-consumers]
+    [rabbitmq_connections]
     user root
 
-    [rabbitmq-messages]
+    [rabbitmq_consumers]
     user root
 
-    [rabbitmq-messages_unacknowledged]
+    [rabbitmq_messages]
     user root
 
-    [rabbitmq-messages_uncommitted]
+    [rabbitmq_messages_unacknowledged]
     user root
 
-    [rabbitmq-queue_memory]
+    [rabbitmq_messages_uncommitted]
+    user root
+
+    [rabbitmq_queue_memory]
     user root
 
 
