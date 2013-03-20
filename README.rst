@@ -27,19 +27,19 @@ To use these plug-ins you have to tell munin-node to execute them as
 root by changing the plug-in configuration file (on debian that is
 ``/etc/munin/plugin-conf.d``)::
 
-    [rabbitmq-consumers]
+    [rabbitmq_consumers]
     user root
 
-    [rabbitmq-messages]
+    [rabbitmq_messages]
     user root
 
-    [rabbitmq-messages_unacknowledged]
+    [rabbitmq_messages_unacknowledged]
     user root
 
-    [rabbitmq-messages_uncommitted]
+    [rabbitmq_messages_uncommitted]
     user root
 
-    [rabbitmq-queue_memory]
+    [rabbitmq_queue_memory]
     user root
 
 
@@ -49,19 +49,19 @@ Using a Custom Virtual Host
 You can set the name of virtual host by changing the plug-in configuration
 file (on debian that is ``/etc/munin/plugin-conf.d``)::
 
-    [rabbitmq-consumers]
+    [rabbitmq_consumers]
     env.vhost vhostname
 
-    [rabbitmq-messages]
+    [rabbitmq_messages]
     env.vhost vhostname
 
-    [rabbitmq-messages_unacknowledged]
+    [rabbitmq_messages_unacknowledged]
     env.vhost vhostname
 
-    [rabbitmq-messages_uncommitted]
+    [rabbitmq_messages_uncommitted]
     env.vhost vhostname
 
-    [rabbitmq-queue_memory]
+    [rabbitmq_queue_memory]
     env.vhost vhostname
 
 Author
