@@ -27,6 +27,9 @@ To use these plug-ins you have to tell munin-node to execute them as
 root by changing the plug-in configuration file (on debian that is
 ``/etc/munin/plugin-conf.d``)::
 
+    [rabbitmq_connections]
+    user root
+
     [rabbitmq_consumers]
     user root
 
@@ -63,8 +66,3 @@ file (on debian that is ``/etc/munin/plugin-conf.d``)::
 
     [rabbitmq_queue_memory]
     env.vhost vhostname
-
-Author
-======
-
-Ask Solem <askh@opera.com>
