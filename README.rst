@@ -20,6 +20,8 @@ Installation
 
 Copy the plug-ins to the munin plugin directory, e.g ``/etc/munin/plugins/``.
 
+`rabbitmq_messages_incoming_rate` plugin requires separate configuration because it uses RabbitMQ's REST API.
+
 Granting Permissions
 ====================
 
@@ -45,6 +47,7 @@ root by changing the plug-in configuration file (on debian that is
     [rabbitmq_queue_memory]
     user root
 
+Note that `rabbitmq_messages_incoming_rate` plugin doesn't have to be added to plugin-conf.d file.
 
 Using a Custom Virtual Host
 ============================
