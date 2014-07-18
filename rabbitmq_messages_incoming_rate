@@ -1,0 +1,46 @@
+#!/usr/bin/python
+import commands
+import json
+import sys
+
+#you'll have to set those to match your setup
+MQ_USER = 'guest'
+MQ_PASS = 'guest'
+MQ_HOST = 'localhost'
+
+def get_json():
+    returned_json = commands.getoutput('curl -s -u ' + MQ_USER + ':'  + MQ_PASS + ' http://' + MQ_HOST + ':15672/api/queues');
+    return json.loads(returned_json)
+
+def munin_config():
+    graph_title='RabbitMQ incoming message rate'
+    graph_vlabel='Messages/s'
+
+    config = "graph_title {0}\n".format(graph_title)
+    config += "graph_args --base 1024\n"
+    config += "graph_category RabbitMQ\n"
+    config += "graph_vlabel {0}\n".format(graph_vlabel)
+    
+    for queue in get_json():
+        config += "{0}_param.label {0}\n".format(queue['name'].replace('.', '-'))
+    return config
+
+
+def munin_main():
+    config = ''
+    for queue in get_json():
+        name = queue['name']
+        avg_ingress_rate = queue['backing_queue_status']['avg_ingress_rate']
+        config += "{0}_param.value {1}\n".format(queue['name'].replace('.', '-'), avg_ingress_rate)
+    return config
+
+try:
+    if sys.argv[1] == 'config':
+        print munin_config()
+        sys.exit(0)
+except IndexError:
+    pass
+
+
+print munin_main()
+sys.exit(0) 
