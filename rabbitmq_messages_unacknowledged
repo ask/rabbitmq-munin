@@ -70,5 +70,4 @@ fi
 # real work - i.e. display the data. Almost always this will be
 # "value" subfield for every data field.
 
-
-HOME=$HOME rabbitmqctl list_queues -p $VHOST name messages_unacknowledged | grep -v "^Listing" | grep -v "done.$" | sed "s/[\t]/.value /g"
+HOME=$HOME rabbitmqctl list_queues -p $VHOST name messages_unacknowledged | grep -v "^Listing" | grep -v "done.$" | sed "s/[.=-]/_/g; s/[\t]/.value /g"
