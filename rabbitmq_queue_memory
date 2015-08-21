@@ -35,8 +35,8 @@ QUEUES=$(rabbitmqctl list_queues -p $VHOST name | \
 		grep -v 'done\.$' | sed -e 's/[.=-]/_/g' )
  
 if [ "$1" = "config" ]; then
-        QUEUE_WARN=${queue_warn:-10000}
-        QUEUE_CRIT=${queue_crit:-20000}
+        QUEUE_WARN=${queue_warn:-10000000}
+        QUEUE_CRIT=${queue_crit:-20000000}
 
 	# The host name this plugin is for. (Can be overridden to have
 	# one machine answer for several)
