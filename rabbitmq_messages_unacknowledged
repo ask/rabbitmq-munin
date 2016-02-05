@@ -21,8 +21,13 @@
 # always be included.
 
 if [ "$1" = "autoconf" ]; then
-	echo yes
-	exit 0
+  RMQCTL=`which rabbitmqctl 2>/dev/null`
+  if [ "x$RMQCTL" = "x" ] ; then
+    echo "no (rabbitmqctl not found)"
+    exit 0
+  fi
+  echo yes
+  exit 0
 fi
 
 # If run with the "config"-parameter, give out information on how the
